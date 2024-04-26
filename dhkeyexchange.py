@@ -71,40 +71,36 @@ def primitiveRoot(prime):
 p = generatePrime()
 g = primitiveRoot(p)
 
-print("Prime number p:", p)
-print("Primitive root g:", g)
-
 # Now we generate Alice's private key
 a = random.randint(1, p - 1)
-print("Alice's private key:", a)
-
 # Now we calculate Alice's public key
 A = (g ** a) % p
-print("Alice's public key:", A)
-
 # Now we generate Bob's private key
 b = random.randint(1, p - 1)
-print("Bob's private key:", b)
-
 # Now we calculate Bob's public key
 B = (g ** b) % p
-print("Bob's public key:", B)
-
-# Now Alice and Bob exchange their public keys and calculate the shared secret key
-
 # Alice calculates the shared secret key
 shared_secret_key_A = (B ** a) % p
-print("Alice's shared secret key:", shared_secret_key_A)
-
 # Bob calculates the shared secret key
 shared_secret_key_B = (A ** b) % p
-print("Bob's shared secret key:", shared_secret_key_B)
-
 # Check if the shared secret keys are equal
+print("DH Key Exchange Protocol:")
 if shared_secret_key_A == shared_secret_key_B:
     print("Shared secret keys match!")
 
 else:
     print("Shared secret keys do not match!")
 
+# This function prints a table with three columns: Alice, Bob and Eve. The table shows a, b, A, B, and S for Alice, Bob and Eve.
+# Eve is an eavesdropper who intercepts the public keys A and B exchanged between Alice and Bob.
 
+def printTable(a, b, A, B, Sa, Sb):
+    # Print the table header
+    print("Alice\tBob\t\tEve")
+
+    # Print the values of a, b, A, B, and S for Alice, Bob and Eve
+    print(str(a) + "\t\t" + str(b) + "\t\t" + "Nothing")
+    print(str(A) + "\t\t" + str(B) + "\t\t" + "Alice and Bob's public keys")
+    print(str(Sa) + "\t\t" + str(Sb) + "\t\t" + str((A ** B) % p))
+
+printTable(a, b, A, B, shared_secret_key_A, shared_secret_key_B)
