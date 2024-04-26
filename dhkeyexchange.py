@@ -35,11 +35,11 @@ def isPrime(number):
 
 def generatePrime():
     # Generate a random number between 10 and 100
-    num = random.randint(10, 100)
+    num = random.randint(10, 1000)
     # Check if the number is prime
     while not isPrime(num):
         # If the number is not prime, generate a new number
-        num = random.randint(10, 100)
+        num = random.randint(10, 1000)
     # Return the prime number
     return num
 
@@ -75,30 +75,36 @@ print("Prime number p:", p)
 print("Primitive root g:", g)
 
 # Now we generate Alice's private key
-
 a = random.randint(1, p - 1)
 print("Alice's private key:", a)
 
 # Now we calculate Alice's public key
-
 A = (g ** a) % p
 print("Alice's public key:", A)
 
 # Now we generate Bob's private key
-
 b = random.randint(1, p - 1)
 print("Bob's private key:", b)
 
 # Now we calculate Bob's public key
-
 B = (g ** b) % p
 print("Bob's public key:", B)
 
 # Now Alice and Bob exchange their public keys and calculate the shared secret key
 
+# Alice calculates the shared secret key
+shared_secret_key_A = (B ** a) % p
+print("Alice's shared secret key:", shared_secret_key_A)
 
+# Bob calculates the shared secret key
+shared_secret_key_B = (A ** b) % p
+print("Bob's shared secret key:", shared_secret_key_B)
 
+# Check if the shared secret keys are equal
+if shared_secret_key_A == shared_secret_key_B:
+    print("Shared secret keys match!")
 
-
+else:
+    print("Shared secret keys do not match!")
 
 
